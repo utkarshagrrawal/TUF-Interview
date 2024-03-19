@@ -48,7 +48,7 @@ export default function Submission() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen relative">
             <h1 className="text-3xl text-center text-gray-800 mb-6 font-bold absolute top-10">Submission Form</h1>
-            <Link to="/submissions" className="text-underline">Go to submissions</Link>
+            <Link to="/submissions" className="">Go to submissions</Link>
             <form className="w-full" onSubmit={handleSubmit}>
                 <div className="mb-4 mx-16">
                     <label htmlFor="username" className="text-gray-700 font-semibold">Username</label>
