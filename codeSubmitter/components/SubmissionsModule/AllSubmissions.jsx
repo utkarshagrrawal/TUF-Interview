@@ -5,6 +5,7 @@ export default function AllSubmissionsTable() {
     const dateFormatter = Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" })
 
     const [submissions, setSubmissions] = useState([]);
+    const [showCode, setShowCode] = useState({});
 
     useEffect(() => {
         const fetchSubmissions = async () => {
@@ -22,10 +23,28 @@ export default function AllSubmissionsTable() {
                 return alert("Error fetching submissions");
             } else {
                 setSubmissions(result.submissions);
+                setShowCode(result.submissions.map((index) => {
+                    return {
+                        [index]: {
+                            show: false,
+                        }
+                    }
+                }));
             }
         }
         fetchSubmissions();
     }, [])
+
+    const handleShow = id => {
+        setShowCode(prevFields => {
+            return {
+                ...prevFields,
+                [id]: {
+                    show: !prevFields[id].show
+                }
+            }
+        })
+    }
 
     return (
         <div className="w-full flex flex-col min-h-screen items-center relative">
@@ -70,7 +89,16 @@ export default function AllSubmissionsTable() {
                                             {submission.stdin}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {submission.code}
+                                            {
+                                                submission.code.length > 100 ? (
+                                                    <>
+                                                        <div className={`${showCode[index]?.show || "overflow-hidden h-5"}`}>
+                                                            {submission.code}
+                                                        </div>
+                                                        <button className="underline hover:cursor-pointer text-blue-500" onClick={() => handleShow(index)}>{showCode[index]?.show ? "Hide" : "Show more"}</button>
+                                                    </>
+                                                ) : submission.code
+                                            }
                                         </td>
                                     </tr>
                                 )
