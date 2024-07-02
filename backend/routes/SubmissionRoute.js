@@ -1,10 +1,13 @@
-const express = require('express')
-const { submitCode, fetchSubmissions } = require('../controllers/SubmissionController')
+const express = require("express");
+const {
+  submitCode,
+  fetchSubmissions,
+} = require("../controllers/SubmissionController");
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/submit", submitCode)
+router.post("/submit", submitCode);
 
-router.get("/submissions", fetchSubmissions)
+router.get("/submissions", fetchSubmissions);
 
-module.exports = router
+module.exports = router;
